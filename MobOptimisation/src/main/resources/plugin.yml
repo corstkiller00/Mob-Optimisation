@@ -1,0 +1,5 @@
+name: 'MobOptimisation'
+main: 'MainClass.MobOptimisation'
+version: '1.0'
+api-version: '1.20'
+
