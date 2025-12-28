@@ -1,0 +1,9 @@
+mobs:
+  bee: true
+  villager: true
+  sheep: true
+
+interval:
+  bee: 600
+  villager: 1200
+  sheep: 1200

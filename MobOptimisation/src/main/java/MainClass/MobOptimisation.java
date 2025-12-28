@@ -20,36 +20,44 @@ public class MobOptimisation extends JavaPlugin {
     public void onEnable() {
 
         mobOptimisation = this;
+        mobOptimisation.saveDefaultConfig();
         setScheduledTasks();
 
     }
 
     private void setScheduledTasks() {
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                fillBeeHives();
-            }
-        }.runTaskTimer(mobOptimisation, 1L, 20L * 600);
+        if (mobOptimisation.getConfig().getBoolean("mobs.bee")) {
 
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    fillBeeHives();
+                }
+            }.runTaskTimer(mobOptimisation, 1L, 20L * mobOptimisation.getConfig().getInt("interval.bee"));
+        }
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                resetVillagerTrades();
-            }
-        }.runTaskTimer(mobOptimisation, 20L * 300, 20L * 1200);
+        if (mobOptimisation.getConfig().getBoolean("mobs.villager")) {
 
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    resetVillagerTrades();
+                }
+            }.runTaskTimer(mobOptimisation, 20L * 300, 20L * mobOptimisation.getConfig().getInt("interval.villager"));
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                resetWool();
-            }
-        }.runTaskTimer(mobOptimisation, 20L * 600, 20L * 1200);
+        }
+
+        if (mobOptimisation.getConfig().getBoolean("mobs.sheep")) {
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    resetWool();
+                }
+            }.runTaskTimer(mobOptimisation, 20L * 600, 20L * mobOptimisation.getConfig().getInt("interval.sheep"));
+        }
     }
-
     //Give sheep their wool back
 
     private void resetWool() {
