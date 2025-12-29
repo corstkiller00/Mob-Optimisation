@@ -34,7 +34,7 @@ public class MobOptimisation extends JavaPlugin {
                 public void run() {
                     fillBeeHives();
                 }
-            }.runTaskTimer(mobOptimisation, 1L, 20L * mobOptimisation.getConfig().getInt("interval.bee"));
+            }.runTaskTimer(mobOptimisation, 20L * mobOptimisation.getConfig().getInt("delay.bee"), 20L * mobOptimisation.getConfig().getInt("interval.bee"));
         }
 
         if (mobOptimisation.getConfig().getBoolean("mobs.villager")) {
@@ -44,7 +44,7 @@ public class MobOptimisation extends JavaPlugin {
                 public void run() {
                     resetVillagerTrades();
                 }
-            }.runTaskTimer(mobOptimisation, 20L * 300, 20L * mobOptimisation.getConfig().getInt("interval.villager"));
+            }.runTaskTimer(mobOptimisation, 20L * mobOptimisation.getConfig().getInt("delay.villager"), 20L * mobOptimisation.getConfig().getInt("interval.villager"));
 
         }
 
@@ -55,7 +55,7 @@ public class MobOptimisation extends JavaPlugin {
                 public void run() {
                     resetWool();
                 }
-            }.runTaskTimer(mobOptimisation, 20L * 600, 20L * mobOptimisation.getConfig().getInt("interval.sheep"));
+            }.runTaskTimer(mobOptimisation, 20L * mobOptimisation.getConfig().getInt("delay.sheep"), 20L * mobOptimisation.getConfig().getInt("interval.sheep"));
         }
     }
     //Give sheep their wool back
@@ -67,7 +67,8 @@ public class MobOptimisation extends JavaPlugin {
 
                 if (entity instanceof Sheep) {
 
-                    if (!(((Sheep) entity).hasAI())) {
+                    //If the sheep has AI, skip it
+                    if (((Sheep) entity).hasAI()) {
                         continue;
                     }
 
@@ -91,7 +92,8 @@ public class MobOptimisation extends JavaPlugin {
 
                 if (entity instanceof Villager) {
 
-                    if (!(((Villager) entity).hasAI())) {
+                    //If the villager has AI, skip it
+                    if (((Villager) entity).hasAI()) {
                         continue;
                     }
 
@@ -114,11 +116,13 @@ public class MobOptimisation extends JavaPlugin {
 
                 if (entity instanceof Bee) {
 
+                    //If the bee has AI or does not have a set hive, skit it
                     if (((Bee) entity).getHive() != null && !(((Bee) entity).hasAI())) {
                         Block block = ((Bee) entity).getHive().getBlock();
 
                         if (block.getBlockData() instanceof org.bukkit.block.data.type.Beehive) {
 
+                            //If the beehive is not full, add honey
                             if (((Beehive) block.getBlockData()).getHoneyLevel() < ((Beehive) block.getBlockData()).getMaximumHoneyLevel()) {
 
                                 BlockData blockData = block.getBlockData();

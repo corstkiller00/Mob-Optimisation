@@ -1,9 +1,18 @@
+# If restocking is enabled for each mob type.
 mobs:
   bee: true
   villager: true
   sheep: true
 
+# The amount of seconds between each restock for each mob type.
 interval:
   bee: 600
   villager: 1200
   sheep: 1200
+
+# The amount of seconds to wait before the first mob restock cycle to occur.
+# (Stops all mobs from being optimised at the same time to reduce lag).)
+delay:
+  bee: 1
+  villager: 300
+  sheep: 600
