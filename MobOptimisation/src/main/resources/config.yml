@@ -6,13 +6,13 @@ mobs:
 
 # The amount of seconds between each restock for each mob type.
 interval:
-  bee: 600
-  villager: 1200
-  sheep: 1200
+  bee: 300
+  villager: 600
+  sheep: 240
 
 # The amount of seconds to wait before the first mob restock cycle to occur.
 # (Stops all mobs from being optimised at the same time to reduce lag).)
 delay:
   bee: 1
-  villager: 300
-  sheep: 600
+  villager: 60
+  sheep: 120
